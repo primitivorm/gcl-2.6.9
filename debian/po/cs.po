@@ -1,0 +1,139 @@
+#
+#    Translators, if you are not familiar with the PO format, gettext
+#    documentation is worth reading, especially sections dedicated to
+#    this format, e.g. by running:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+#
+#    Some information specific to po-debconf are available at
+#            /usr/share/doc/po-debconf/README-trans
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+#    Developers do not need to manually edit POT or PO files.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gcl\n"
+"Report-Msgid-Bugs-To: gcl@packages.debian.org\n"
+"POT-Creation-Date: 2012-12-30 11:53-0400\n"
+"PO-Revision-Date: 2007-12-24 13:21+0100\n"
+"Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
+"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../gcl.templates:2001
+msgid "Use the work-in-progress ANSI build by default?"
+msgstr "Používat implicitně ANSI verzi (stále ve vývoji)?"
+
+#. Type: boolean
+#. Description
+#: ../gcl.templates:2001
+msgid ""
+"GCL is in the process of providing an ANSI compliant image in addition to "
+"its traditional CLtL1 image still in production use."
+msgstr ""
+"GCL se nachází ve fázi, kdy kromě tradičního obrazu CLtL1 (který se stále "
+"používá) poskytuje i obraz kompatibilní s ANSI."
+
+#. Type: boolean
+#. Description
+#: ../gcl.templates:2001
+msgid ""
+"Please see the README.Debian file for a brief description of these terms. "
+"Choosing this option will determine which image will be used by default when "
+"executing 'gcl@EXT@'."
+msgstr ""
+"Pro stručný popis těchto termínů si prosím přečtěte soubor README.Debian. "
+"Touto odpovědí určujete, který obraz se spustí po zadání „gcl@EXT@“. "
+
+#. Type: boolean
+#. Description
+#: ../gcl.templates:2001
+msgid ""
+"This setting may be overridden by setting the GCL_ANSI environment variable "
+"to any non-empty string for the ANSI build, and to the empty string for the "
+"CLtL1 build, e.g. GCL_ANSI=t gcl@EXT@. The currently enforced build flavor "
+"will be reported in the initial startup banner."
+msgstr ""
+"Toto nastavení můžete přebít nastavením proměnné prostředí GCL_ANSI na "
+"neprázdný řetězec (použije ANSI verzi) nebo na prázdnou hodnotu (použije "
+"CLtL1 verzi). Například GCL_ANSI=t gcl@EXT@. Aktuálně použitá verze se "
+"zobrazí na úvodní obrazovce."
+
+#. Type: boolean
+#. Description
+#: ../gcl.templates:3001
+msgid "Use the profiling build by default?"
+msgstr "Používat implicitně profilování?"
+
+#. Type: boolean
+#. Description
+#: ../gcl.templates:3001
+msgid "GCL has optional support for profiling via gprof."
+msgstr "GCL nyní podporuje profilování přes gprof."
+
+#. Type: boolean
+#. Description
+#: ../gcl.templates:3001
+msgid ""
+"Please see the documentation for si::gprof-start and si::gprof-quit for "
+"details. As this build is slower than builds without gprof support, it is "
+"not recommended for final production use."
+msgstr ""
+"Podrobnosti naleznete v dokumentaci si::gprof-start a si::gprof-quit. Tato "
+"verze je pomalejší než verze bez podpory gprof, tudíž ji nedoporučujeme pro "
+"koncové produkční nasazení."
+
+#. Type: boolean
+#. Description
+#: ../gcl.templates:3001
+msgid ""
+"Set the GCL_PROF environment variable to the empty string for more optimized "
+"builds, or any non-empty string for profiling support; e.g. GCL_PROF=t "
+"gcl@EXT@. If profiling is enabled, this will be reported in the initial "
+"startup banner."
+msgstr ""
+"Toto nastavení můžete přebít nastavením proměnné prostředí GCL_PROF na "
+"neprázdný řetězec (zapne profilování) nebo na prázdnou hodnotu (povolí lepší "
+"optimalizace). Například GCL_PROF=t gcl@EXT@. Pokud je profilování zapnuto, "
+"dozvíte se o tom z úvodní obrazovky."
+
+#~ msgid ""
+#~ "GCL is one of the oldest free common lisp systems still in use. Several "
+#~ "production systems have used it for over a decade.  The common lisp "
+#~ "standard in effect when GCL was first released is known as \"Common Lisp, "
+#~ "the Language\" (CLtL1) after a book by Steele of the same name providing "
+#~ "this specification.  Subsequently, a much expanded standard was adopted "
+#~ "by the American National Standards Institute (ANSI), which is still "
+#~ "considered the definitive common lisp language specification to this "
+#~ "day.  GCL is in the process of providing an ANSI compliant image in "
+#~ "addition to its traditional CLtL1 image still in production use.  Setting "
+#~ "this variable will determine which image you will use by default on "
+#~ "executing 'gcl'.  You can locally override this choice by setting the "
+#~ "GCL_ANSI environment variable to any non-empty string for the ANSI build, "
+#~ "and to the empty string for the CLtL1 build, e.g. GCL_ANSI=t gcl.  You "
+#~ "may be interested in reviewing the ANSI test results sketching the level "
+#~ "of compliance achieved thus far in /usr/share/doc/gcl/test_results.gz.  "
+#~ "The flavor of the build in force will be reported in the initial startup "
+#~ "banner."
+#~ msgstr ""
+#~ "GCL je jedním z nejstarších svobodných systémů common lispu, který se "
+#~ "dosud používá. Několik produkčních systémů jej používá déle než dekádu. "
+#~ "Při prvním vydání GCL byl v platnosti standard common lispu známý jako "
+#~ "\"Common Lisp, the Language\" (CLtL1) pojmenovaný podle Steelovy knihy "
+#~ "stejného jména, která tento standard definovala. Americkým národním "
+#~ "institutem pro standardizaci (ANSI) pak byl přijat podstatně rozšířený "
+#~ "standard, který se do dnešní doby považuje za konečnou specifikaci common "
+#~ "lispu. Kromě tradičního CLtL1 se GCL snaží nabídnout i verzi odpovídající "
+#~ "ANSI standardu. Nastavením této proměnné určíte, jakým způsobem se má "
+#~ "binárka 'gcl' chovat. Lokálně můžete toto nastavení přepsat nastavením "
+#~ "proměnné prostředí GCL_ANSI na neprázdný řetězec (zapne ANSI chování) "
+#~ "nebo na prázdnou hodnotu (zapne CLtL1 chování). Například GCL_ANSI-t gcl. "
+#~ "Aktuálně vybraný standard bude zobrazen v úvodní obrazovce prostředí. "
+#~ "Zajímavé může být porovnání dosud dosažené shody s ANSI standardem v "
+#~ "souboru /usr/share/doc/gcl/test_results.gz."

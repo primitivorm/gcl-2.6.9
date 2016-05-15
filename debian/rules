@@ -1,0 +1,268 @@
+#!/usr/bin/make -f
+# Sample debian/rules that uses debhelper. 
+# GNU copyright 1997 by Joey Hess.
+#
+# This version is for a hypothetical package that builds an
+# architecture-dependant package, as well as an architecture-independent
+# package.
+
+# Uncomment this to turn on verbose mode. 
+#export DH_VERBOSE=1
+
+# This is the debhelper compatability version to use.
+ARCHT:=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+MCC:=gcc
+# ifeq ($(ARCHT),alpha)
+# MCC:=gcc-4.6
+# endif
+# ifeq ($(ARCHT),mips)
+# MCC:=gcc-4.6
+# endif
+# ifeq ($(ARCHT),mipsel)
+# MCC:=gcc-4.6
+# endif
+# ifeq ($(ARCHT),ia64)
+# MCC:=gcc-4.6
+# endif
+# ifeq ($(ARCHT),armel)
+# MCC:=gcc-4.6
+# endif
+# ifeq ($(ARCHT),armhf)
+# MCC:=gcc-4.6
+# endif
+
+#RELOC=locbfd
+#RELOC?=statsysbfd
+RELOC?=custreloc
+ifeq ($(ARCHT),ia64)
+RELOC=dlopen
+endif
+# ifeq ($(ARCHT),ppc64)
+# RELOC=dlopen
+# endif
+#ifeq ($(ARCHT),hppa)
+#RELOC=dlopen
+#endif
+
+GMP?=
+
+DEBUG=
+
+#ifeq ($(ARCHT),hppa)
+#DEBUG=--enable-debug
+#endif
+
+VERS=$(shell echo $$(cat majvers).$$(cat minvers))
+#EXT:=cvs
+
+CFG:=$(addsuffix /config.,.)# gmp4/configfsf.
+# Bug in autoconf dependency on emacsen-common workaround
+#CFGS:=$(addsuffix .ori,configure $(addsuffix guess,$(CFG)) $(addsuffix sub,$(CFG)))
+CFGS:=$(addsuffix .ori,$(addsuffix guess,$(CFG)) $(addsuffix sub,$(CFG)))
+
+$(filter %.guess.ori,$(CFGS)): %.ori: /usr/share/misc/config.guess %
+	! [ -e $* ] || [ -e $@ ] || cp $* $@
+	[ $$($< -t | tr -d '-') -le $$(./$* -t | tr -d '-') ] || cp $< $*
+	touch $@
+
+$(filter %.sub.ori,$(CFGS)): %.ori: /usr/share/misc/config.sub %
+	! [ -e $* ] || [ -e $@ ] || cp $* $@
+	[ $$($< -t | tr -d '-') -le $$(./$* -t | tr -d '-') ] || cp $< $*
+	touch $@
+
+configure.ori: %.ori: configure.in 
+	! [ -e $* ] || [ -e $@ ] || cp $* $@
+	cd $(@D) && autoconf 
+	touch $@
+
+configure-%-stamp: $(CFGS)
+
+	dh_testdir
+
+	! [ -e unixport/saved_pre_gcl ] || $(MAKE) clean
+
+#	chmod -R +x gmp4/*
+
+	[ "$*" != "ansi" ] || FLAGS="--enable-ansi" ; \
+	[ "$*" != "gprof" ] || FLAGS="--enable-gprof" ; \
+	[ "$*" != "ansi-gprof" ] || FLAGS="--enable-ansi --enable-gprof" ; \
+	eval `dpkg-buildflags --export=sh |sed -e 's,-O2,,g' -e 's,-g,,g'` && CC=$(MCC) ./configure \
+		--host=$$(dpkg-architecture -qDEB_HOST_GNU_TYPE) \
+		--disable-statsysbfd \
+		--disable-custreloc \
+		--disable-dlopen \
+		--enable-prelink \
+		--enable-$(RELOC) \
+		$(GMP) \
+		$(DEBUG) \
+		$$FLAGS \
+		--prefix=/usr \
+		--mandir=\$${prefix}/share/man \
+		--enable-infodir=\$${prefix}/share/info \
+		--enable-emacsdir=\$${prefix}/share/emacs/site-lisp
+
+	touch $@
+
+
+build-%-stamp: configure-%-stamp
+	dh_testdir
+
+	$(MAKE)
+
+	rm -rf debian/$*
+	mkdir -p debian/$*
+	$(MAKE) install DESTDIR=$$(pwd)/debian/$*
+	[ "$(findstring gprof,$*)" = "" ] || (\
+		tmp=debian/$*; old=/usr/lib/gcl-$(VERS); new=$$old-prof;\
+		if [ "$(findstring ansi,$*)" = "" ] ; then i=saved_gcl ; else i=saved_ansi_gcl ; fi;\
+		mv $$tmp/$$old $$tmp/$$new ;\
+		echo "(reset-sys-paths \"$$new/\")(si::save-system \"debian/tmp-image\")" | $$tmp/$$new/unixport/$$i &&\
+		mv debian/tmp-image $$tmp/$$new/unixport/$$i;)
+
+	touch $@
+
+bclean-stamp:
+	$(MAKE) clean
+	touch $@
+
+ansi-tests/test_results: build-ansi-stamp
+	$(MAKE) $@
+
+build: build-arch build-indep
+build-arch: build-stamp
+build-indep: build-stamp
+build-stamp: build-gprof-stamp build-ansi-gprof-stamp build-trad-stamp build-ansi-stamp ansi-tests/test_results
+	touch $@
+
+debian/control.rm:
+	rm -f `echo $@ | sed 's,\.rm$$,,1'`
+
+debian/control: debian/control.rm
+	cp debian/control.$(EXT) debian/control
+
+clean: debian/control debian/gcl.templates
+	dh_testdir
+	dh_testroot
+	rm -f *stamp
+	debconf-updatepo
+
+	$(MAKE) clean
+
+	dh_clean
+	rm -rf debian/gprof debian/ansi-gprof debian/trad debian/ansi $(INS) debian/substvars debian.upstream
+	rm -rf *stamp
+	for i in $(CFGS) ; do ! [ -e $$i ] || mv $$i $${i%.ori} ; done
+
+INS:=$(shell for i in debian/in.* ; do echo $$i | sed 's,in.,,1' ; done |sed "s,gcl,gcl$(EXT),g")
+
+$(INS): debian/gcl$(EXT)% : debian/in.gcl%
+	cat $< | sed 's,@EXT@,$(EXT),g' >$@
+
+install: install-stamp
+install-stamp: build-stamp debian/control $(INS)
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	mkdir -p debian/tmp
+	cp -a debian/ansi/* debian/tmp/
+	cp -a debian/trad/* debian/tmp/
+	cp -a debian/gprof/* debian/tmp/
+	cp -a debian/ansi-gprof/* debian/tmp/
+
+	mv debian/tmp/usr/share/emacs/site-lisp debian/tmp/usr/share/emacs/foo
+	mkdir -p debian/tmp/usr/share/emacs/site-lisp
+	mv debian/tmp/usr/share/emacs/foo debian/tmp/usr/share/emacs/site-lisp/gcl$(EXT)
+
+	cat debian/tmp/usr/share/emacs/site-lisp/gcl$(EXT)/gcl.el |\
+		sed "s,(provide 'gcl),(provide 'gcl$(EXT)),1" >tmp &&\
+		mv tmp debian/tmp/usr/share/emacs/site-lisp/gcl$(EXT)/gcl$(EXT).el
+	[ "$(EXT)" = "" ] || rm debian/tmp/usr/share/emacs/site-lisp/gcl$(EXT)/gcl.el
+
+	cat debian/tmp/usr/share/emacs/site-lisp/gcl$(EXT)/dbl.el |\
+		sed "s,(provide 'dbl),(provide 'dbl$(EXT)),1" >tmp &&\
+		mv tmp debian/tmp/usr/share/emacs/site-lisp/gcl$(EXT)/dbl$(EXT).el
+	[ "$(EXT)" = "" ] || rm debian/tmp/usr/share/emacs/site-lisp/gcl$(EXT)/dbl.el
+
+	[ "$(EXT)" = "" ] || \
+		for i in debian/tmp/usr/share/info/*.info*; do \
+			mv $$i $$(echo $$i | sed "s,gcl,gcl$(EXT),g"); done
+
+	mv debian/tmp/usr/share/doc debian/tmp/usr/share/foo
+	mkdir -p debian/tmp/usr/share/doc/gcl-doc
+	mv debian/tmp/usr/share/foo/* debian/tmp/usr/share/doc/gcl-doc
+	rmdir debian/tmp/usr/share/foo
+
+	[ "$(EXT)" = "" ] || \
+		mv debian/tmp/usr/share/doc/gcl-doc debian/tmp/usr/share/doc/gcl$(EXT)-doc 
+
+	[ "$(EXT)" = "" ] || \
+		(cat debian/tmp/usr/share/man/man1/gcl.1 |sed -e 's, gcl , gcl$(EXT) ,g' 's, GCL , GCL$(EXT) ,g' >debian/foo && \
+			mv debian/foo debian/tmp/usr/share/man/man1/gcl$(EXT).1)
+
+	cat debian/tmp/usr/lib/gcl-$(VERS)/gcl-tk/demos/index.lsp | \
+		sed "s,$$(pwd)/debian/tmp,,1" >debian/foo
+	mv debian/foo debian/tmp/usr/lib/gcl-$(VERS)/gcl-tk/demos/index.lsp
+
+	rm -f debian/tmp/usr/bin/*.exe debian/tmp/usr/bin/*.bat
+
+	find debian/tmp -type f -name "*.lsp" -exec chmod ugo-x {} \;
+	find debian/tmp -type f -name "*.lisp" -exec chmod ugo-x {} \;
+	find debian/tmp -type f -name "*.el" -exec chmod ugo-x {} \;
+	find debian/tmp -type f -name "*.tcl" -exec chmod ugo-x {} \;
+
+	rm -f debian/tmp/usr/bin/gcl
+	TKVERS=$$(cat bin/gcl | grep /tk | head -1l | sed "s,.*/tk\([0-9.]*\)\").*,\1,1"); \
+		cat debian/gcl.sh | sed -e "s,@EXT@,$(EXT),g" \
+					-e "s,@VERS@,$(VERS),g" \
+					-e "s,@TKVERS@,$$TKVERS,g" >debian/tmp/usr/bin/gcl$(EXT)
+	chmod 0755 debian/tmp/usr/bin/gcl$(EXT)
+
+	rm -rf debian/tmp/usr/lib/gcl-$(VERS)/info
+
+	dh_install
+
+	touch $@
+
+# Build architecture-independent files here.
+# Pass -i to all debhelper commands in this target to reduce clutter.
+binary-indep: build install
+	dh_testdir -i
+	dh_testroot -i
+	dh_installdocs -i
+	dh_installinfo -i
+	dh_installchangelogs ChangeLog -i
+	dh_link -i
+	dh_compress -i
+	dh_fixperms -i
+	dh_installdeb -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
+
+binary-arch: build install #debian/substvars
+	dh_testdir -a
+	dh_testroot -a
+	dh_installdocs -a -XRELEASE-2.6.2.html
+	dh_installemacsen -a
+	dh_installman -a
+	dh_installdebconf -a
+	sed -i -e 's,@EXT@,$(EXT),g' debian/gcl$(EXT)/DEBIAN/templates
+	dh_installchangelogs ChangeLog -a
+	dh_strip -a -Xlibgcl -Xlibansi_gcl \
+		-Xgcl-$(VERS)-prof/unixport/saved_gcl -Xgcl-$(VERS)-prof/unixport/saved_ansi_gcl
+	dh_lintian -a
+	dh_link -a
+	dh_compress -a
+	dh_fixperms -a
+	dh_installdeb -a
+	dh_shlibdeps -a
+	dh_gencontrol -a -u"-Vgcc=$(MCC)"
+	dh_md5sums -a
+	dh_builddeb -a
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure
+.PRECIOUS: configure-trad-stamp configure-ansi-stamp configure-gprof-stamp configure-ansi-gprof-stamp

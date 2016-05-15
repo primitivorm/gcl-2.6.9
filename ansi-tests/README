@@ -1,0 +1,14 @@
+This directory contains a partial Common Lisp standards compliance
+test suite.
+
+To run the tests, load gclload.lsp.  This will load and
+run the tests.  To just load the tests, load gclload1.lsp
+and gclload2.lsp.
+
+Individual tests may be run by (rt:do-test '<test name>).
+
+Please tell me when you find incorrect test cases.
+
+	Paul Dietz
+	dietz@dls.net
+

@@ -1,0 +1,402 @@
+/* h/gclincl.h.in.  Generated from configure.in by autoheader.  */
+
+/* constant to reserve upper 3Gb for C stack */
+#undef ADDR_COMPAT_LAYOUT
+
+/* only 3Gb of address space */
+#undef ADDR_LIMIT_3GB
+
+/* punt guess for no randomize value */
+#undef ADDR_NO_RANDOMIZE
+
+/* compile ansi compliant image */
+#undef ANSI_COMMON_LISP
+
+/* binding stack size */
+#undef BDSSIZE
+
+/* sscanf terminates prematurely (Windows XP) */
+#undef BUGGY_MAXIMUM_SSCANF_LENGTH
+
+/* can prevent sbrk from returning random values */
+#undef CAN_UNRANDOMIZE_SBRK
+
+/* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
+   systems. This function is required for `alloca.c' support on those systems.
+   */
+#undef CRAY_STACKSEG_END
+
+/* starting C stack address */
+#undef CSTACK_ADDRESS
+
+/* C stack alignment */
+#undef CSTACK_ALIGNMENT
+
+/* log starting C stack address */
+#undef CSTACK_BITS
+
+/* whether C stack grows up or down */
+#undef CSTACK_DIRECTION
+
+/* Define to 1 if using `alloca.c'. */
+#undef C_ALLOCA
+
+/* debug safecdr code */
+#undef DEBUG_SAFE_CDR
+
+/* big endian word order */
+#undef DOUBLE_BIGENDIAN
+
+/* frame stack size */
+#undef FRSSIZE
+
+/* use gprof profiling */
+#undef GCL_GPROF
+
+/* starting address for gprof */
+#undef GCL_GPROF_START
+
+/* No gettimeofday call -- fixme */
+#undef GETTOD_NOT_DECLARED
+
+/* using gmp */
+#undef GMP
+
+/* Define to 1 if you have `alloca', as a function or macro. */
+#undef HAVE_ALLOCA
+
+/* Define to 1 if you have <alloca.h> and it should be used (not on Ultrix).
+   */
+#undef HAVE_ALLOCA_H
+
+/* Define to 1 if you have the <asm/sigcontext.h> header file. */
+#undef HAVE_ASM_SIGCONTEXT_H
+
+/* Define to 1 if you have the <asm/signal.h> header file. */
+#undef HAVE_ASM_SIGNAL_H
+
+/* bfd_boolean defined */
+#undef HAVE_BFD_BOOLEAN
+
+/* Define to 1 if you have the <bfd.h> header file. */
+#undef HAVE_BFD_H
+
+/* have bsdgettimeofday */
+#undef HAVE_BSDGETTIMEOFDAY
+
+/* have __builtin__clear_cache instruction */
+#undef HAVE_BUILTIN_CLEAR_CACHE
+
+/* clzl instruction */
+#undef HAVE_CLZL
+
+/* Define to 1 if you have the <complex.h> header file. */
+#undef HAVE_COMPLEX_H
+
+/* ctzl instruction */
+#undef HAVE_CTZL
+
+/* have readline completion matches */
+#undef HAVE_DECL_RL_COMPLETION_MATCHES
+
+/* Define to 1 if you have the <dirent.h> header file. */
+#undef HAVE_DIRENT_H
+
+/* Define to 1 if you have the <dis-asm.h> header file. */
+#undef HAVE_DIS_ASM_H
+
+/* have struct dirent d_type field */
+#undef HAVE_D_TYPE
+
+/* Define to 1 if you have the <elf_abi.h> header file. */
+#undef HAVE_ELF_ABI_H
+
+/* Define to 1 if you have the <elf.h> header file. */
+#undef HAVE_ELF_H
+
+/* Define to 1 if you have the `feenableexcept' function. */
+#undef HAVE_FEENABLEEXCEPT
+
+/* Have finite function */
+#undef HAVE_FINITE
+
+/* Define to 1 if you have the <float.h> header file. */
+#undef HAVE_FLOAT_H
+
+/* Define to 1 if you have the `getcwd' function. */
+#undef HAVE_GETCWD
+
+/* Define to 1 if you have the `getwd' function. */
+#undef HAVE_GETWD
+
+/* Define to 1 if you have the <gmp.h> header file. */
+#undef HAVE_GMP_H
+
+/* gnu linker present */
+#undef HAVE_GNU_LD
+
+/* Have ieeefp fpclass function */
+#undef HAVE_IEEEFP
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Have isfinite function */
+#undef HAVE_ISFINITE
+
+/* Have isnormal function */
+#undef HAVE_ISNORMAL
+
+/* Define to 1 if you have the <japi.h> header file. */
+#undef HAVE_JAPI_H
+
+/* use libbfd */
+#undef HAVE_LIBBFD
+
+/* Define to 1 if you have the `opcodes' library (-lopcodes). */
+#undef HAVE_LIBOPCODES
+
+/* long long is available */
+#undef HAVE_LONG_LONG
+
+/* Define to 1 if you have the <malloc/malloc.h> header file. */
+#undef HAVE_MALLOC_MALLOC_H
+
+/* memalign element present */
+#undef HAVE_MALLOC_ZONE_MEMALIGN
+
+/* Define to 1 if you have the <math.h> header file. */
+#undef HAVE_MATH_H
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the `mprotect' function. */
+#undef HAVE_MPROTECT
+
+/* can use nsocket library */
+#undef HAVE_NSOCKET
+
+/* output_bfd element present */
+#undef HAVE_OUTPUT_BFD
+
+/* Define to 1 if you have the `print_insn_i386' function. */
+#undef HAVE_PRINT_INSN_I386
+
+/* have putenv call */
+#undef HAVE_PUTENV
+
+/* have readline library */
+#undef HAVE_READLINE
+
+/* Define to 1 if you have the <readline/readline.h> header file. */
+#undef HAVE_READLINE_READLINE_H
+
+/* have readline completion matches */
+#undef HAVE_RL_COMPENTRY_FUNC_T
+
+/* have setenv call */
+#undef HAVE_SETENV
+
+/* Define to 1 if you have the <setjmp.h> header file. */
+#undef HAVE_SETJMP_H
+
+/* Define to 1 if you have the `sigaltstack' function. */
+#undef HAVE_SIGALTSTACK
+
+/* have sigcontext */
+#undef HAVE_SIGCONTEXT
+
+/* have SIGEMT signal */
+#undef HAVE_SIGEMT
+
+/* have SIGSYS signal */
+#undef HAVE_SIGSYS
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* have sv_onstack */
+#undef HAVE_SV_ONSTACK
+
+/* Define to 1 if you have the <sys/ioctl.h> header file. */
+#undef HAVE_SYS_IOCTL_H
+
+/* Define to 1 if you have the <sys/mman.h> header file. */
+#undef HAVE_SYS_MMAN_H
+
+/* Define to 1 if you have the <sys/sockio.h> header file. */
+#undef HAVE_SYS_SOCKIO_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if you have the <values.h> header file. */
+#undef HAVE_VALUES_H
+
+/* have xdr extensions */
+#undef HAVE_XDR
+
+/* using xgcl */
+#undef HAVE_XGCL
+
+/* number of pages to use for hole */
+#undef HOLEPAGE
+
+/* Host cpu */
+#undef HOST_CPU
+
+/* Host kernel */
+#undef HOST_KERNEL
+
+/* Host system */
+#undef HOST_SYSTEM
+
+/* time system constant */
+#undef HZ
+
+/* invocation history stack size */
+#undef IHSSIZE
+
+/* beginning address for immediate fixnum range */
+#undef IM_FIX_BASE
+
+/* size of immediate fixnum address space */
+#undef IM_FIX_LIM
+
+/* symbol name mangling convention */
+#undef LEADING_UNDERSCORE
+
+/* can use fcntl for listen function */
+#undef LISTEN_USE_FCNTL
+
+/* upper immediate fixnum bound */
+#undef LOW_SHFT
+
+/* size of immediate fixnum address space */
+#undef MEM_RANGE
+
+/* beginning address for immediate fixnum range */
+#undef MEM_TOP
+
+/* sizeof mp_limb in gmp library */
+#undef MP_LIMB_BYTES
+
+/* binutils requires CONST definition */
+#undef NEED_CONST
+
+/* C stack address is negative */
+#undef NEG_CSTACK_ADDRESS
+
+/* no gettimeofday call */
+#undef NO_GETTOD
+
+/* no profil system call */
+#undef NO_PROFILE
+
+/* can use C extension for functions that do not return */
+#undef NO_RETURN
+
+/* no uname call */
+#undef NO_UNAME
+
+/* lowest address non-object */
+#undef OBJNULL
+
+/* can use C extension for object alignment */
+#undef OBJ_ALIGN
+
+/* needed object alignment in bytes */
+#undef OBJ_ALIGNMENT
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* system pagewidth */
+#undef PAGEWIDTH
+
+/* have sigcontext in signal.h */
+#undef SIGNAL_H_HAS_SIGCONTEXT
+
+/* sizeof linked list for contiguous pages */
+#undef SIZEOF_CONTBLOCK
+
+/* sizeof jmp_buf */
+#undef SIZEOF_JMP_BUF
+
+/* The size of `long', as computed by sizeof. */
+#undef SIZEOF_LONG
+
+/* If using the C implementation of alloca, define if you know the
+   direction of stack growth for your system; otherwise it will be
+   automatically deduced at runtime.
+	STACK_DIRECTION > 0 => grows toward higher addresses
+	STACK_DIRECTION < 0 => grows toward lower addresses
+	STACK_DIRECTION = 0 => direction of growth unknown */
+#undef STACK_DIRECTION
+
+/* staticly linked images */
+#undef STATIC_LINKING
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* have _cleanup function */
+#undef USE_CLEANUP
+
+/* link compiled objects via libdl */
+#undef USE_DLOPEN
+
+/* use fionbio for non-blocking io */
+#undef USE_FIONBIO
+
+/* protect cdr from immfix and speed up type processing */
+#undef USE_SAFE_CDR
+
+/* value stack size */
+#undef VSSIZE
+
+/* three word cons */
+#undef WIDE_CONS
+
+/* big endian byte order */
+#undef WORDS_BIGENDIAN
+
+/* long gmp3 limbs */
+#undef __LONG_LONG_LIMB
+
+/* short gmp3 limbs */
+#undef __SHORT_LIMB
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#undef size_t

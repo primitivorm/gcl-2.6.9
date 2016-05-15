@@ -1,0 +1,116 @@
+\input texinfo
+@c -*-texinfo-*-
+@c IMPORTANT....
+@c some versions of texinfo.tex cause an error message 'unmatched paren
+@c for:
+@c @defun foo (a &optional (b 3))
+@c ! unbalanced parens in @def arguments.
+@c ignore these by using 's' to scroll error messages in tex.
+
+
+@c @smallbook
+@setfilename gcl-tk.info
+@synindex vr fn
+
+@c to update the menus do: 
+@c (texinfo-multiple-files-update "gcl-si.texi" t t)
+
+
+
+@setchapternewpage odd
+@dircategory GNU Common Lisp
+@direntry 
+* gcl-tk: (gcl-tk.info). GNU TK Manual
+@end direntry
+
+@ifinfo
+This is a Texinfo GCL TK Manual
+
+Copyright 1994 William F. Schelter
+@end ifinfo
+
+@titlepage
+@sp 10
+@comment The title is printed in a large font.
+@comment @center @titlefont{GCL TK Manual}
+@title GCL TK Manual
+@end titlepage
+
+@node Top, General, (dir), (dir)
+@top
+
+@menu
+* General::                     
+* Widgets::                     
+* Control::                     
+
+ --- The Detailed Node Listing ---
+
+General
+
+* Introduction::		
+* Getting Started::		
+* Common Features of Widgets::	
+* Return Values::		
+* Argument Lists::		
+* Lisp Functions Invoked from Graphics::  
+* Linked Variables::		
+* tkconnect::			
+
+Widgets
+
+* button::			
+* listbox::			
+* scale::			
+* canvas::			
+* menu::			
+* scrollbar::			
+* checkbutton::			
+* menubutton::			
+* text::			
+* entry::			
+* message::			
+* frame::			
+* label::			
+* radiobutton::			
+* toplevel::			
+
+Control
+
+* after::			
+* bind::			
+* destroy::			
+* tk-dialog::			
+* exit::			
+* focus::			
+* grab::			
+* tk-listbox-single-select::	
+* lower::			
+* tk-menu-bar::			
+* option::			
+* options::			
+* pack-old::			
+* pack::			
+* place::			
+* raise::			
+* selection::			
+* send::			
+* tk::				
+* tkerror::			
+* tkvars::			
+* tkwait::			
+* update::			
+* winfo::			
+* wm::				
+@end menu
+
+@include general.texi
+
+@include widgets.texi
+
+@include control.texi
+
+@summarycontents
+@contents
+@bye
+
